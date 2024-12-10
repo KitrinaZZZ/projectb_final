@@ -1,6 +1,6 @@
-let bg
-let pg = 0
-let input
+let bg;
+let pg = 0;
+let input;
 let submitButton; // 提交按钮
 let userInput = ""; // 存储用户输入的内容
 let answer = [];
@@ -8,11 +8,11 @@ let startColor;
 let endColor;
 let currentColor;
 let t = 0; 
-let bh = 0
-let textDisplay
-let qix = 0
-let zmo=0
-let bzx=[]
+let bh = 0;
+let textDisplay;
+let qix = 0;
+let zmo = 0;
+let bzx = [];
 let sound;
 let qls = [
   "Section 1:Mental Health and Daily Habits\n\nIn the past week, have you often felt\nnervous or anxious?\nNever / Rarely / Sometimes / Often / Always",
@@ -43,7 +43,7 @@ let qls = [
   "Have you ever adjusted your social media\nprivacy settings due to concerns\nabout personal information? \nFor example, hiding your details or limiting visibility.\nYes / No If yes, please describe what changes you made",
   "Do you use any password management\ntools to protect your accounts?\nIf so, which tool(s) do you use?",
 
-]
+];
 
 
 
@@ -51,12 +51,12 @@ let qls = [
 
 let bubble = [];
 let n = 30;
-let  vv
+let  vv;
 
 
-let   n1
-let   n2
-let   n3
+let   n1;
+let   n2;
+let   n3;
 function preload() {
   bg = loadImage("./img/1.jpg")
   vv = loadImage("./img/bg.png")
@@ -72,7 +72,7 @@ function preload() {
 }
 
 let inputBox;
-let button2
+let button2;
 
 
 function setup() {
@@ -92,7 +92,7 @@ function setup() {
     // 按钮被点击时的操作
     console.log('Input value:', input.value());
 
-    pg = 1
+    pg = 1;
 
 
     userInput=input.value()
