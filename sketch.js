@@ -1,6 +1,6 @@
-let bg;
-let pg = 0;
-let input;
+let bg
+let pg = 0
+let input
 let submitButton; // 提交按钮
 let userInput = ""; // 存储用户输入的内容
 let answer = [];
@@ -8,14 +8,14 @@ let startColor;
 let endColor;
 let currentColor;
 let t = 0; 
-let bh = 0;
+let bh = 0
 let textDisplay;
-let qix = 0;
-let zmo = 0;
-let bzx = [];
+let qix = 0
+let zmo=0
+let bzx=[]
 let sound;
 let qls = [
-  "Section 1:Mental Health and Daily Habits\n\nIn the past week, have you often felt\nnervous or anxious?\nNever / Rarely / Sometimes / Often / Always",
+  "Section 1:Mental Health and Daily Habits\nIn the past week, have you often felt\nnervous or anxious?",
   "Do you have any habits in your daily\nlife that help you relax,\nsuch as specific exercises, reading,\nor dietary preferences? Please specify.",
   "Are there any foods or ingredients\n you need to avoid due to allergies\nor preferences? Please list them.",
   "What is your usual daily routine? What time do you\n typically wake up and go to bed?\nWake-up time: [Fill in]\nBedtime: [Fill in]",
@@ -24,7 +24,7 @@ let qls = [
 
 
   "Section 2: Education and Career Background\n\nWhat is your highest level of education?\nPlease specify your degree and field of study.",
-  "What is the name of your current \nschool or workplace? (Optional)",
+  "What is the name of your current \nschool or workplace?",
   "Are you satisfied with your current career\nor field of study? If not, what\n aspects would you like to change?",
   "Where do you usually get information\nor news (e.g., social media, recommendations\nfrom friends, news websites)?",
   "Does your job or studies require frequent\nuse of personal devices (e.g., smartphones, computers)?\nPlease list the types of devices and their usage frequency.",
@@ -33,7 +33,7 @@ let qls = [
   "Section 3: Living Environment and Social Connections\n\nWhat is your current residential address? \n(City and neighborhood name are sufficient.)",
   "Are you satisfied with your current living environment?\n Please explain which aspects you like or dislike\n (e.g., transportation, neighborhood relations).",
   "How often do you connect with family and friends?\nWhat is your preferred method of communication\n(e.g., phone, messaging apps, email)?",
-  "Who are the members of your family?\nPlease list their ages and occupations (Optional).",
+  "Who are the members of your family?\nPlease list their ages and occupations.",
   "During your last move, what factors did you consider\nmost important when choosing a new location\n(e.g., commute distance, safety)?",
 
 
@@ -43,17 +43,10 @@ let qls = [
   "Have you ever adjusted your social media\nprivacy settings due to concerns\nabout personal information? \nFor example, hiding your details or limiting visibility.\nYes / No If yes, please describe what changes you made",
   "Do you use any password management\ntools to protect your accounts?\nIf so, which tool(s) do you use?",
 
-];
-
-
-
-
-
+]
 let bubble = [];
 let n = 30;
 let  vv;
-
-
 let   n1;
 let   n2;
 let   n3;
@@ -72,7 +65,7 @@ function preload() {
 }
 
 let inputBox;
-let button2;
+let button2
 
 
 function setup() {
@@ -92,7 +85,7 @@ function setup() {
     // 按钮被点击时的操作
     console.log('Input value:', input.value());
 
-    pg = 1;
+    pg = 1
 
 
     userInput=input.value()
@@ -139,10 +132,10 @@ function setup() {
     if (qix == 20) {
 
 
-      pg = 2
+      pg = 2;
 
-      inputBox.hide()
-      button2.hide()
+      inputBox.hide();
+      button2.hide();
     }
 
   });
@@ -176,14 +169,16 @@ function draw() {
       bubble[i].checkBoundaries();
       }
     push()
+    textFont('Georgia');
     textSize(32);
     // textAlign(LEFT, TOP);
     fill(50);
     // textAlign(CENTER)
     // 提示文字
     text("Please Enter Your Name to Start:", width / 2 - 200, height / 2 - 30);
-
-    textSize(32);
+    textSize(50);
+    text("SCL-90-Questionnaire (Speedrun Version)", width / 2-500, height / 2 - 200);
+    textSize(28);
     fill(50);
     text("Your name: " + input.value(), width / 2 - 200, height / 2 + 80);
 
@@ -358,6 +353,13 @@ function draw() {
 
 
     background(240);
+    let str = answer.join("\n");
+    if (str.length < 100) {
+      soundPlayer0.stop();
+      soundPlayer1.play();
+      inputBox.hide();
+      button2.hide();
+      pg=4;}
     for (let i = 0; i < bubble.length; i++) {
       bubble[i].display();
       bubble[i].move();
@@ -459,9 +461,9 @@ function draw() {
 
     
     
-    background(0)
-    imageMode(CENTER)
-    image(n3,width/2,height/2,n3.width/2,n3.height/2)
+    background(0);
+    imageMode(CENTER);
+    image(n3,width/2,height/2,n3.width/2,n3.height/2);
     
     
   }
@@ -557,32 +559,63 @@ function keyPressed(){
 
   if(pg==3){
 
+    // 下载文件内容
+if (key == 'S' || key == 's') {
+  // 将数组转换为字符串，每个元素用换行符分隔
+  const dataStr = answer.join("\n");
 
-  if(key== 'S'||key== 's'){
+  // 创建一个 Blob 对象
+  const blob = new Blob([dataStr], { type: 'text/plain' });
 
+  // 创建一个 URL 对象
+  const url = URL.createObjectURL(blob);
 
-        // 将数组转换为字符串，每个元素用换行符分隔
-        const dataStr = answer.join("\n");
+  // 创建一个临时链接元素
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "data.txt"; // 指定下载文件名
 
-        // 创建一个 Blob 对象
-        const blob = new Blob([dataStr], { type: 'text/plain' });
+  // 触发下载
+  document.body.appendChild(a);
+  a.click();
 
-        // 创建一个 URL 对象
-        const url = URL.createObjectURL(blob);
+  // 清理
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
 
-        // 创建一个临时链接元素
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "data.txt"; // 指定下载文件名
+// 计算文字数量
+function countCharacters(file) {
+  const reader = new FileReader();
 
-        // 触发下载
-        document.body.appendChild(a);
-        a.click();
+  reader.onload = function (event) {
+      const text = event.target.result;
+      const characterCount = text.length; // 获取总文字数
+      console.log(`The file contains ${characterCount} characters.`);
+  };
 
-        // 清理
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+  reader.onerror = function () {
+      console.error("An error occurred while reading the file.");
+  };
+
+  reader.readAsText(file);
+}
+
+// 添加文件选择器
+const input = document.createElement("input");
+input.type = "file";
+input.accept = "text/plain";
+
+input.onchange = function (event) {
+  const file = event.target.files[0];
+  if (file) {
+      countCharacters(file);
   }
+};
+
+document.body.appendChild(input);
+
+
 
 }
 }
